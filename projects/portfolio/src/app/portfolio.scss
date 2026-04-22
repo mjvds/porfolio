@@ -3,7 +3,7 @@
 }
 
 .loading-container {
-  @apply flex items-center justify-center;
+  @apply flex items-center justify-center mix-blend-difference;
   width: var(--pf-w-screen);
   height: var(--pf-h-screen);
   padding: var(--pf-spacing);
@@ -70,7 +70,7 @@
 }
 
 .nav-top-right {
-  @apply w-auto absolute flex z-4 items-center;
+  @apply w-auto absolute flex z-4 items-center mix-blend-difference;
   height: auto !important;
   right: var(--pf-spacing);
   inset-block-start: var(--pf-spacing);
@@ -82,7 +82,7 @@
 }
 
 .nav-bottom-right {
-  @apply absolute flex z-1;
+  @apply absolute flex z-1 mix-blend-difference;
   inset-block-end: 0px;
   height: auto !important;
   writing-mode: sideways-rl;

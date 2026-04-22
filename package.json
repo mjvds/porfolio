@@ -2,9 +2,10 @@
   "name": "personal",
   "version": "0.0.0",
   "scripts": {
-    "build:prod": "ng build --configuration production --base-href /portfolio/",
+    "build:prod": "ng build portfolio --configuration production --base-href /portfolio/",
     "deploy": "npx angular-cli-ghpages --dir=dist/portfolio/browser/",
-    "build:deploy": "npm run build:prod && npm run deploy"
+    "build:deploy": "npm run build:prod && npm run deploy",
+    "serve:v2": "ng serve --project portfolio-v2"
   },
   "prettier": {
     "printWidth": 100,
@@ -25,6 +26,7 @@
     "@angular/compiler": "^21.0.0",
     "@angular/core": "^21.0.0",
     "@angular/forms": "^21.0.0",
+    "@angular/language-server": "^21.1.5",
     "@angular/platform-browser": "^21.0.0",
     "@angular/router": "^21.0.0",
     "@ng-icons/core": "^33.0.0",
@@ -37,13 +39,19 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-devkit/core": "^21.0.4",
+    "@angular-devkit/schematics": "^21.0.4",
     "@angular/build": "^21.0.4",
     "@angular/cli": "^21.0.4",
     "@angular/compiler-cli": "^21.0.0",
     "@biomejs/biome": "^2.3.7",
+    "@nx/angular": "22.5.4",
+    "@nx/workspace": "22.5.4",
+    "@schematics/angular": "^21.0.4",
     "@tailwindcss/postcss": "^4.1.12",
     "angular-cli-ghpages": "^3.0.2",
     "jsdom": "^27.1.0",
+    "nx": "22.5.4",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.12",
     "typescript": "~5.9.2",

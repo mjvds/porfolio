@@ -14,19 +14,18 @@ import {
   Signal,
   signal,
   viewChild,
-  viewChildren,
 } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
-import { gsap } from 'gsap';
-import { Observer } from 'gsap/Observer';
 import { SplitText } from 'gsap/SplitText';
 import { Contact } from './components/contact/contact';
 import { Hamburger } from './components/hamburger/hamburger';
 import { Introduction } from './components/introduction/introduction';
 import { MobileNav } from './components/mobile-nav/mobile-nav';
-import { Project } from './components/project/project';
+import { Projects } from './components/projects/projects';
 import { jobData, JobData } from './job-data';
 import { resizeObserverFactory, ResponsiveName } from './utilities/signal.util';
+import { gsap } from 'gsap';
+import { Observer } from 'gsap/Observer';
 
 gsap.registerPlugin(Observer, SplitText);
 
@@ -48,15 +47,22 @@ enum ColorScheme {
   Dark = 'dark',
 }
 
+enum SectionIndex {
+  Introduction,
+  Project,
+  Contact,
+}
+
 @Component({
   selector: 'pf-root',
   imports: [
     NgIcon,
-    Project,
+    // Project,
     Introduction,
     Contact,
     Hamburger,
     MobileNav,
+    Projects,
   ],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
@@ -66,7 +72,7 @@ export class Portfolio implements OnInit {
 
   hamburder = viewChild(Hamburger);
 
-  projects = viewChildren(Project);
+  projects = viewChild(Projects);
 
   cdr = inject(ChangeDetectorRef);
 
@@ -82,9 +88,11 @@ export class Portfolio implements OnInit {
 
   logoIsHovered = false;
 
-  currentVisibleIndex = signal(0);
+  currentVisibleIndex = signal<SectionIndex>(SectionIndex.Introduction);
 
   animationDirection = signal<AnimationDirection>(AnimationDirection.Up);
+
+  sectionIndex = SectionIndex;
 
   projectsDescription = computed(() => {
     return this.jobs.map((j) => {
@@ -104,7 +112,10 @@ export class Portfolio implements OnInit {
 
   projectIsActive = computed(() => {
     const currentIndex = this.currentVisibleIndex();
-    if (currentIndex >= 1 && currentIndex <= this.jobs.length) {
+    if (
+      currentIndex >= SectionIndex.Project &&
+      currentIndex <= this.jobs.length
+    ) {
       return true;
     }
     return false;
@@ -133,10 +144,12 @@ export class Portfolio implements OnInit {
   });
 
   contactIsActive = computed(
-    () => this.currentVisibleIndex() === this.jobs.length + 1,
+    () => this.currentVisibleIndex() === SectionIndex.Contact,
   );
 
   responsiveObservable = resizeObserverFactory();
+
+  observer: Observer | null = null;
 
   constructor() {
     effect(() => {
@@ -161,10 +174,20 @@ export class Portfolio implements OnInit {
           break;
       }
     });
+
+    effect(() => {
+      switch (this.currentVisibleIndex()) {
+        case SectionIndex.Introduction:
+        case SectionIndex.Contact:
+          return setTimeout(() => this.observer?.enable(), this.animationDuration * 1000);
+        case SectionIndex.Project:
+          return setTimeout(() => this.observer?.disable(), this.animationDuration * 1000);
+      }
+    });
   }
 
   ngOnInit(): void {
-    Observer.create({
+    this.observer = Observer.create({
       type: 'wheel,touch',
       wheelSpeed: -1,
       ignore: '.observer-ignore',
@@ -185,7 +208,7 @@ export class Portfolio implements OnInit {
   }
 
   onDown(): void {
-    if (this.isAnimating) {
+    if (this.isAnimating || this.currentVisibleIndex() === SectionIndex.Project) {
       return;
     }
     this.animationDirection.set(AnimationDirection.Down);
@@ -193,7 +216,7 @@ export class Portfolio implements OnInit {
   }
 
   onUp(): void {
-    if (this.isAnimating) {
+    if (this.isAnimating || this.currentVisibleIndex() === SectionIndex.Project) {
       return;
     }
     this.animationDirection.set(AnimationDirection.Up);

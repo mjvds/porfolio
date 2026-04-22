@@ -64,12 +64,12 @@
   </div>
 
   <!-- @if (isAnimating) { -->
-  <div class="animation-indicator-container relative" animate.leave="indicator-leave">
+  <div class="animation-indicator-container relative z-[-1]" animate.leave="indicator-leave">
     <div class="animation-indicator" #animationIndicator></div>
   </div>
   <!-- } -->
 
-  @if (currentVisibleIndex() === 0) {
+  @if (currentVisibleIndex() === sectionIndex.Introduction) {
     <pf-introduction
       class="section rounded-xs"
       #introduction
@@ -98,20 +98,27 @@
     </div>
   }
 
-  @for (job of jobs; track job.id; let odd = $odd; let index = $index) {
-    @if (currentVisibleIndex() === index + 1) {
-      <pf-project
-        #project
-        class="section rounded-xs"
-        [jobData]="job"
-        (animate.enter)="enterFn($event, project)"
-        (animate.leave)="leaveFn($event, project)"
-      />
-    }
+  @if (currentVisibleIndex() === sectionIndex.Project) {
+    <pf-projects
+      class="section"
+      [projects]="jobs"
+    >
+    </pf-projects>
   }
 
-  @let contactIndex = jobs.length + 1;
-  @if (currentVisibleIndex() === contactIndex) {
+  <!-- @for (job of jobs; track job.id; let odd = $odd; let index = $index) { -->
+  <!--   @if (currentVisibleIndex() === index + 1) { -->
+  <!--     <pf-project -->
+  <!--       #project -->
+  <!--       class="section rounded-xs" -->
+  <!--       [jobData]="job" -->
+  <!--       (animate.enter)="enterFn($event, project)" -->
+  <!--       (animate.leave)="leaveFn($event, project)" -->
+  <!--     /> -->
+  <!--   } -->
+  <!-- } -->
+
+  @if (currentVisibleIndex() === sectionIndex.Contact) {
     <pf-contact
       #contact
       class="section rounded-xs"

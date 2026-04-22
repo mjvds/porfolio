@@ -1,0 +1,9 @@
+@if (show()) {
+  @for (letter of lettersArr(); track letter.id; let index = $index) {
+    <div class="overflow-hidden">
+      <div (animate.enter)="enterAnimation($event, index)">
+        {{ letter.letter === ' ' ? '&nbsp;' : letter.letter }}
+      </div>
+    </div>
+  }
+}

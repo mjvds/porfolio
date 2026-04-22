@@ -13,6 +13,7 @@ import { NgIcon } from '@ng-icons/core';
 import { JobDataTechStack, techStacks } from '@portfolio/job-data';
 import { SectionComponent } from '@portfolio/portfolio';
 import { CarouselStack } from '../carousel-stack/carousel-stack';
+import { AnimateLetters } from '../shared/animate-letters/animate-letters';
 
 @Component({
   selector: 'pf-introduction',
@@ -21,6 +22,7 @@ import { CarouselStack } from '../carousel-stack/carousel-stack';
   imports: [
     NgIcon,
     CarouselStack,
+    AnimateLetters,
   ],
 })
 export class Introduction implements OnInit, SectionComponent {

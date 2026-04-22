@@ -1,0 +1,7 @@
+:host {
+  @apply w-full overflow-x-hidden;
+  opacity: 100% !important;
+  overflow-y: scroll !important;
+  height: calc(100vh - var(--pf-spacing) * 2);
+  background-color: var(--pf-bg-color);
+}

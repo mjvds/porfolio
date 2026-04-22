@@ -4,17 +4,17 @@
   <div class="px-5 p-5 observer-ignore tech-stack-wrapper w-full h-full">
     <div class="tech-stack-content w-full" #techStackContent>
       <div class="flex flex-nowrap justify-start gap-5 opacity-60 w-full" #techStackContents>
-        <pf-carousel-stack [items]="stacks">
-          <ng-template #itemTemplate let-stack="item">
-            <div class="intro-bg-icon flex items-center justify-center" title="{{ stack.name }}">
-              @if (stack?.icon) {
-                <ng-icon [name]="stack.icon" class="text-5xl pointer-events-none"></ng-icon>
-              } @else {
-                <span class="text-2xl text-nowrap">{{ stack.name }}</span>
-              }
-            </div>
-          </ng-template>
-        </pf-carousel-stack>
+        <!-- <pf-carousel-stack [items]="stacks"> -->
+        <!--   <ng-template #itemTemplate let-stack="item"> -->
+        <!--     <div class="intro-bg-icon flex items-center justify-center" title="{{ stack.name }}"> -->
+        <!--       @if (stack?.icon) { -->
+        <!--         <ng-icon [name]="stack.icon" class="text-5xl pointer-events-none"></ng-icon> -->
+        <!--       } @else { -->
+        <!--         <span class="text-2xl text-nowrap">{{ stack.name }}</span> -->
+        <!--       } -->
+        <!--     </div> -->
+        <!--   </ng-template> -->
+        <!-- </pf-carousel-stack> -->
       </div>
     </div>
   </div>
@@ -22,13 +22,16 @@
     <div class="w-full flex items-end justify-start">
       <div class="items-start flex-col">
         <div class="intro-name font-normal flex gap-5 flex-wrap" #logoInitContainer>
-          <span #animatedText class="flex"> MARK </span>
-          <span #animatedText class="flex"> DELOS </span>
-          <span #animatedText class="flex"> SANTOS </span>
+          <pf-animate-letters letters="MARK DELOS SANTOS"> </pf-animate-letters>
+          <!-- MARK DELOS SANTOS -->
         </div>
         <p class="text-2xl md:text-4xl w-full lg:w-1/2 opacity-60">
-          Frontend Developer crafting fast, scalable, and user-focused web and mobile applications
-          with Angular, TypeScript, and modern UI technologies.
+          <pf-animate-letters
+            class="flex-wrap justify-start"
+            letters="Frontend Developer crafting fast, scalable, and user-focused web and mobile applications with Angular, TypeScript, and modern UI technologies.
+          "
+          >
+          </pf-animate-letters>
         </p>
       </div>
       <div class="w-1/2 flex flex-col justify-center text-4xl items-end gap-5"></div>
